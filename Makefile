@@ -1,5 +1,8 @@
 build:
-	docker build -t user-cli .
+	GOOS=linux GOARCH=amd64 go build -o shipcon-user-cli
+	docker build -t shipcon-user-cli .
 
 run:
-    docker run -e MICRO_REGISTRY=mdns user-cli
+	docker run --net="host" \
+	-e MICRO_REGISTRY=mdns \
+	shipcon-user-cli
